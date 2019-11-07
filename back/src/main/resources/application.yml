@@ -1,7 +1,57 @@
+
+#mybatis-plus
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: com.heeexy.example.model
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      db-type: mysql
+      table-underline: true
+      insert-strategy: not_empty
+      select-strategy: not_empty
+      update-strategy: not_empty
+  configuration:
+    cache-enabled: true
+    map-underscore-to-camel-case: true
+
 spring:
+    # elasticsearch配置
+  data:
+    elasticsearch:
+      cluster-nodes: localhost:9300
+      cluster-name: elasticsearch
+  main:
+    allow-bean-definition-overriding: true
   datasource:
-      url: jdbc:mysql://localhost:3306/example?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
-      username: root
-      password: root
-mybatis:
-   mapperLocations: classpath:/mapper/*.xml
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: Tjj990819
+    url:  jdbc:mysql://localhost:3306/handoff?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+    sql-script-encoding: UTF-8
+    druid:
+      # \u8FDE\u63A5\u6C60\u7684\u914D\u7F6E\u4FE1\u606F
+      # \u521D\u59CB\u5316\u5927\u5C0F\uFF0C\u6700\u5C0F\uFF0C\u6700\u5927
+      initial-size: 3
+      min-idle: 5
+      max-active: 20
+      # \u914D\u7F6E\u83B7\u53D6\u8FDE\u63A5\u7B49\u5F85\u8D85\u65F6\u7684\u65F6\u95F4
+      max-wait: 30000
+      # \u914D\u7F6E\u95F4\u9694\u591A\u4E45\u624D\u8FDB\u884C\u4E00\u6B21\u68C0\u6D4B\uFF0C\u68C0\u6D4B\u9700\u8981\u5173\u95ED\u7684\u7A7A\u95F2\u8FDE\u63A5\uFF0C\u5355\u4F4D\u662F\u6BEB\u79D2
+      time-between-eviction-runs-millis: 60000
+      # \u914D\u7F6E\u4E00\u4E2A\u8FDE\u63A5\u5728\u6C60\u4E2D\u6700\u5C0F\u751F\u5B58\u7684\u65F6\u95F4\uFF0C\u5355\u4F4D\u662F\u6BEB\u79D2
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      # \u6253\u5F00PSCache\uFF0C\u5E76\u4E14\u6307\u5B9A\u6BCF\u4E2A\u8FDE\u63A5\u4E0APSCache\u7684\u5927\u5C0F
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      # \u914D\u7F6E\u76D1\u63A7\u7EDF\u8BA1\u62E6\u622A\u7684filters\uFF0C\u53BB\u6389\u540E\u76D1\u63A7\u754C\u9762sql\u65E0\u6CD5\u7EDF\u8BA1\uFF0C'wall'\u7528\u4E8E\u9632\u706B\u5899
+      filters: stat,wall
+      # \u901A\u8FC7connectProperties\u5C5E\u6027\u6765\u6253\u5F00mergeSql\u529F\u80FD\uFF1B\u6162SQL\u8BB0\u5F55
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=10000

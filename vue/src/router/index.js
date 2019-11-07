@@ -14,24 +14,58 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/dashboard',
     name: '首页',
+    meta: {title: "dashboard", icon: "eye"},
     hidden: true,
     children: [{
-      path: 'dashboard', component: _import('dashboard/index')
+      path: '/dashboard',
+      component: _import('dashboard/index'),
     }]
   }
 ]
 export default new Router({
-  // mode: 'history', //后端支持可开
+  mode: 'history', //后端支持可开
   scrollBehavior: () => ({y: 0}),
   routes: constantRouterMap
 })
 export const asyncRouterMap = [
   {
+    path: '/SpotLight',
+    component: Layout,
+    name: 'SpotLight',
+    meta: {title: 'SpotLight', icon: 'eye'},
+    hidden:true,
+    children: [
+      {
+        path: 'search',
+        name: 'search',
+        component: _import('search/search'),
+        meta: {title: '搜索', icon: 'tree'},
+        menu: 'article'
+      },
+    ]
+  },
+  {
+    path: '/SpotLight',
+    component: Layout,
+    name: 'helloPage',
+    meta: {title: 'SpotLight', icon: 'tree'},
+    hidden:false,
+    children: [
+      {
+        path: 'index',
+        name: 'index',
+        component: _import('search/index'),
+        meta: {title: '搜索', icon: 'search'},
+        menu: 'article'
+      },
+    ]
+  },
+  {
     path: '/system',
     component: Layout,
     redirect: '/system/article',
-    name: '功能模块',
-    meta: {title: '功能模块', icon: 'tree'},
+    name: '讨论区',
+    meta: {title: '讨论区', icon: 'tree'},
     children: [
       {
         path: 'article',
@@ -47,10 +81,10 @@ export const asyncRouterMap = [
     component: Layout,
     redirect: '/user/',
     name: '',
-    meta: {title: '用户权限', icon: 'table'},
+    meta: {title: '添加角色', icon: 'table'},
     children: [
       {
-        path: '', name: '用户列表', component: _import('user/user'), meta: {title: '用户列表', icon: 'user'}, menu: 'user'
+        path: '', name: '添加角色', component: _import('user/user'), meta: {title: '添加角色', icon: 'user'}, menu: 'user'
       },
       {
         path: 'role',

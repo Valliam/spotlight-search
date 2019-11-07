@@ -30,7 +30,7 @@ public class UserController {
 		return userService.listUser(CommonUtil.request2Json(request));
 	}
 
-	@RequiresPermissions("user:add")
+	@RequiresPermissions("user:add" )
 	@PostMapping("/addUser")
 	public JSONObject addUser(@RequestBody JSONObject requestJson) {
 		CommonUtil.hasAllRequired(requestJson, "username, password, nickname,   roleId");
