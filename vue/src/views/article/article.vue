@@ -1,5 +1,6 @@
 <template>
   <div class="app-container">
+<!--    添加button-->
     <div class="filter-container">
       <el-form>
         <el-form-item>
@@ -8,6 +9,7 @@
         </el-form-item>
       </el-form>
     </div>
+<!--添加表格-->
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit
               highlight-current-row>
       <el-table-column align="center" label="序号" width="80">
@@ -89,8 +91,9 @@
         this.api({
           url: "/article/listArticle",
           method: "get",
-          params: this.listQuery
+          params: this.listQuery,
         }).then(data => {
+          console.log(this.listQuery);
           this.listLoading = false;
           this.list = data.list;
           this.totalCount = data.totalCount;
